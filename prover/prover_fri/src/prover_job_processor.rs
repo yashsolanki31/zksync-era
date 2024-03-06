@@ -195,11 +195,7 @@ impl Prover {
 
     fn prove_base_layer(
         job_id: u32,
-        circuit: ZkSyncBaseLayerCircuit<
-            GoldilocksField,
-            VmWitnessOracle<GoldilocksField>,
-            ZkSyncDefaultRoundFunction,
-        >,
+        circuit: ZkSyncBaseLayerCircuit,
         _config: Arc<FriProverConfig>,
         artifact: Arc<GoldilocksProverSetupData>,
     ) -> FriProofWrapper {

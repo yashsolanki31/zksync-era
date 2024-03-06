@@ -29,13 +29,7 @@ pub const EIP_4844_CIRCUIT_ID: u8 = 255;
 #[derive(serde::Serialize, serde::Deserialize, Clone)]
 #[allow(clippy::large_enum_variant)]
 pub enum CircuitWrapper {
-    Base(
-        ZkSyncBaseLayerCircuit<
-            GoldilocksField,
-            VmWitnessOracle<GoldilocksField>,
-            ZkSyncDefaultRoundFunction,
-        >,
-    ),
+    Base(ZkSyncBaseLayerCircuit),
     Recursive(ZkSyncRecursiveLayerCircuit),
     Eip4844(EIP4844Circuit<GoldilocksField, ZkSyncDefaultRoundFunction>),
 }

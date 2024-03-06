@@ -107,11 +107,7 @@ impl StoredObject for SchedulerPartialInputWrapper {
 
 pub async fn save_circuit(
     block_number: L1BatchNumber,
-    circuit: ZkSyncBaseLayerCircuit<
-        GoldilocksField,
-        VmWitnessOracle<GoldilocksField>,
-        ZkSyncDefaultRoundFunction,
-    >,
+    circuit: ZkSyncBaseLayerCircuit,
     sequence_number: usize,
     object_store: &dyn ObjectStore,
 ) -> (u8, String) {
