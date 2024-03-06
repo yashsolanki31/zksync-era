@@ -31,7 +31,7 @@ pub const EIP_4844_CIRCUIT_ID: u8 = 255;
 pub enum CircuitWrapper {
     Base(ZkSyncBaseLayerCircuit),
     Recursive(ZkSyncRecursiveLayerCircuit),
-    Eip4844(EIP4844Circuit<GoldilocksField, ZkSyncDefaultRoundFunction>),
+    Eip4844(EIP4844Circuit),
 }
 
 impl StoredObject for CircuitWrapper {
