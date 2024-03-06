@@ -18,7 +18,9 @@ zksync_prover_interface = { path = "../prover_interface" }
 codegen = { git = "https://github.com/matter-labs/solidity_plonk_verifier.git", branch = "dev" }
 
 # Used to calculate the kzg commitment and proofs
-kzg = { path = "../../../../era-zkevm_test_harness/kzg"}
+#kzg = { path = "../../../../era-zkevm_test_harness/kzg"}
+kzg = { git = "https://github.com/matter-labs/era-zkevm_test_harness.git", branch = "mmzk_0306_move_encodings", package = "kzg" }
+
 
 sha2 = "0.10.8"
 sha3 = "0.10.8"

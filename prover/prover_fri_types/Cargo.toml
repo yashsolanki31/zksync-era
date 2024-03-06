@@ -8,11 +8,11 @@ edition = "2021"
 zksync_object_store = { path = "../../core/lib/object_store" }
 zksync_types = { path = "../../core/lib/types" }
 
-#circuit_definitions = { git = "https://github.com/matter-labs/era-zkevm_test_harness.git", branch = "v1.4.2", features = [
-#    "log_tracing",
-#] }
+circuit_definitions = { git = "https://github.com/matter-labs/era-zkevm_test_harness.git", branch = "mmzk_0306_move_encodings", features = [
+    "log_tracing",
+] }
 
-circuit_definitions = { path = "../../../era-zkevm_test_harness/circuit_definitions" }
+#circuit_definitions = { path = "../../../era-zkevm_test_harness/circuit_definitions" }
 
 
 serde = { version = "1.0", features = ["derive"] }
