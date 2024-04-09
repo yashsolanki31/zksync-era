@@ -15,6 +15,7 @@ use zksync_merkle_tree::{
 use zksync_object_store::{ObjectStore, ObjectStoreFactory};
 use zksync_prover_interface::inputs::PrepareBasicCircuitsJob;
 use zksync_queued_job_processor::JobProcessor;
+use zksync_types::block::MiniblockExecutionData;
 use zksync_types::{
     ethabi::ethereum_types::BigEndianHash, witness_block_state::WitnessBlockState, AccountTreeId,
     Address, L1BatchNumber, L2ChainId, StorageKey,
@@ -176,6 +177,30 @@ impl Sgx2fa {
             .unwrap();
         tracing::info!("{:?}", old_root_hash);
 
+        let fictive_miniblock_number = miniblocks_execution_data.last().unwrap().number + 1;
+        let fictive_miniblock_data = rt_handle
+            .block_on(
+                connection
+                    .sync_dal()
+                    .sync_block(fictive_miniblock_number, false),
+            )
+            .unwrap()
+            .unwrap();
+        let last_non_fictive_miniblock_data = rt_handle
+            .block_on(
+                connection
+                    .sync_dal()
+                    .sync_block(fictive_miniblock_number - 1, false),
+            )
+            .unwrap()
+            .unwrap();
+        let fictive_miniblock_data = MiniblockExecutionData {
+            number: fictive_miniblock_data.number,
+            timestamp: fictive_miniblock_data.timestamp,
+            prev_block_hash: last_non_fictive_miniblock_data.hash.unwrap_or_default(),
+            virtual_blocks: fictive_miniblock_data.virtual_blocks.unwrap_or(0),
+            txs: Vec::new(),
+        };
         let (mut vm, storage_view) =
             create_vm(rt_handle.clone(), l1_batch_number, connection, l2_chain_id)
                 .context("failed to create vm for Sgx2fa")?;
@@ -186,7 +211,7 @@ impl Sgx2fa {
             .iter()
             .skip(1)
             .map(Some)
-            .chain([None]);
+            .chain([Some(&fictive_miniblock_data)]);
         let miniblocks_data = miniblocks_execution_data.iter().zip(next_miniblocks_data);
 
         for (miniblock_data, next_miniblock_data) in miniblocks_data {
