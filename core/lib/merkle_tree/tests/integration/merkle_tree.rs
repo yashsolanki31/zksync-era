@@ -55,7 +55,7 @@ fn output_proofs_are_computed_correctly_on_empty_tree(kv_count: u64) {
 
     assert_eq!(output.root_hash(), Some(expected_hash));
     assert_eq!(output.logs.len(), instructions.len());
-    output.verify_proofs(&Blake2Hasher, empty_tree_hash, &instructions);
+    assert!(output.verify_proofs(&Blake2Hasher, empty_tree_hash, &instructions));
     let root_hash = output.root_hash().unwrap();
 
     let reads = instructions
@@ -64,7 +64,7 @@ fn output_proofs_are_computed_correctly_on_empty_tree(kv_count: u64) {
     let mut reads: Vec<_> = reads.collect();
     reads.shuffle(&mut rng);
     let output = tree.extend_with_proofs(reads.clone());
-    output.verify_proofs(&Blake2Hasher, root_hash, &reads);
+    assert!(output.verify_proofs(&Blake2Hasher, root_hash, &reads));
     assert_eq!(output.root_hash(), Some(root_hash));
 }
 
@@ -138,7 +138,7 @@ fn proofs_are_computed_correctly_for_mixed_instructions() {
         .iter()
         .any(|op| matches!(op.base, TreeLogEntry::Read { .. })));
 
-    output.verify_proofs(&Blake2Hasher, old_root_hash, &instructions);
+    assert!(output.verify_proofs(&Blake2Hasher, old_root_hash, &instructions));
     assert_eq!(output.root_hash(), Some(expected_hash));
 }
 
@@ -163,7 +163,7 @@ fn proofs_are_computed_correctly_for_missing_keys() {
         .filter(|op| matches!(op.base, TreeLogEntry::ReadMissingKey));
     assert_eq!(read_misses.count(), 30);
     let empty_tree_hash = Blake2Hasher.empty_subtree_hash(256);
-    output.verify_proofs(&Blake2Hasher, empty_tree_hash, &instructions);
+    assert!(output.verify_proofs(&Blake2Hasher, empty_tree_hash, &instructions));
 }
 
 fn test_intermediate_commits(db: &mut impl Database, chunk_size: usize) {
@@ -196,7 +196,7 @@ fn output_proofs_are_computed_correctly_with_intermediate_commits(chunk_size: us
     for chunk in kvs.chunks(chunk_size) {
         let instructions = convert_to_writes(chunk);
         let output = tree.extend_with_proofs(instructions.clone());
-        output.verify_proofs(&Blake2Hasher, root_hash, &instructions);
+        assert!(output.verify_proofs(&Blake2Hasher, root_hash, &instructions));
         root_hash = output.root_hash().unwrap();
     }
     assert_eq!(root_hash, *expected_hash);
@@ -390,12 +390,12 @@ fn proofs_are_computed_correctly_with_key_updates(updated_keys: usize) {
     let mut tree = MerkleTree::new(PatchSet::default());
     let output = tree.extend_with_proofs(old_instructions.clone());
     let empty_tree_hash = Blake2Hasher.empty_subtree_hash(256);
-    output.verify_proofs(&Blake2Hasher, empty_tree_hash, &old_instructions);
+    assert!(output.verify_proofs(&Blake2Hasher, empty_tree_hash, &old_instructions));
 
     let root_hash = output.root_hash().unwrap();
     let output = tree.extend_with_proofs(instructions.clone());
     assert_eq!(output.root_hash(), Some(*expected_hash));
-    output.verify_proofs(&Blake2Hasher, root_hash, &instructions);
+    assert!(output.verify_proofs(&Blake2Hasher, root_hash, &instructions));
 
     let keys: Vec<_> = kvs.iter().map(|entry| entry.key).collect();
     let proofs = tree.entries_with_proofs(1, &keys).unwrap();
