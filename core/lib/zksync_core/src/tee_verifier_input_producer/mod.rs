@@ -143,6 +143,7 @@ impl TeeVerifierInputProducer {
                 ReadStorage::load_factory_dep(&mut real_storage_view, u256_to_h256(hash))
                     .map(|bytes| (u256_to_h256(hash), bytes))
             })
+            .flatten()
             .collect();
 
         info!("Started execution of l1_batch: {l1_batch_number:?}");
@@ -195,11 +196,9 @@ impl TeeVerifierInputProducer {
             Vec::with_capacity(0),
         );
 
-        for val in used_contracts.into_iter() {
-            if let Some((hash, bytes)) = val {
-                trace!("raw_storage.store_factory_dep({hash}, bytes)");
-                raw_storage.store_factory_dep(hash, bytes)
-            }
+        for (hash, bytes) in used_contracts.into_iter() {
+            trace!("raw_storage.store_factory_dep({hash}, bytes)");
+            raw_storage.store_factory_dep(hash, bytes)
         }
 
         let block_output_with_proofs =

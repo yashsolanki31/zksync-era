@@ -18,7 +18,7 @@ pub struct TeeVerifierInput {
     pub fictive_miniblock_data: MiniblockExecutionData,
     pub l1_batch_env: L1BatchEnv,
     pub system_env: SystemEnv,
-    pub used_contracts: Vec<Option<(H256, Vec<u8>)>>,
+    pub used_contracts: Vec<(H256, Vec<u8>)>,
 }
 
 impl StoredObject for TeeVerifierInput {
