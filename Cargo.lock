@@ -8110,6 +8110,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "zksync_batch_verifier"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "tokio",
+ "zksync_basic_types",
+ "zksync_config",
+ "zksync_object_store",
+ "zksync_tee_verifier",
+]
+
+[[package]]
 name = "zksync_circuit_breaker"
 version = "0.1.0"
 dependencies = [
