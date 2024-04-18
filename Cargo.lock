@@ -8121,6 +8121,7 @@ dependencies = [
 name = "zksync_basic_types"
 version = "0.1.0"
 dependencies = [
+ "bincode",
  "chrono",
  "num_enum 0.7.2",
  "serde",
