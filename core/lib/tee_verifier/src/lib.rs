@@ -5,8 +5,7 @@
 use multivm::interface::{L1BatchEnv, SystemEnv};
 use serde::{Deserialize, Serialize};
 use zksync_basic_types::{L1BatchNumber, H256};
-use zksync_object_store::_reexports::BoxedError;
-use zksync_object_store::{Bucket, StoredObject};
+use zksync_object_store::{Bucket, StoredObject, _reexports::BoxedError};
 use zksync_prover_interface::inputs::PrepareBasicCircuitsJob;
 use zksync_types::block::MiniblockExecutionData;
 
@@ -44,10 +43,11 @@ impl StoredObject for TeeVerifierInput {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use multivm::zk_evm_latest::ethereum_types::U256;
     use zksync_basic_types::L2ChainId;
     use zksync_prover_interface::inputs::StorageLogMetadata;
+
+    use super::*;
 
     #[test]
     fn test_prepare_basic_circuits_job_serialization() {
