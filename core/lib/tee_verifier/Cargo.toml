@@ -18,3 +18,4 @@ zksync_object_store.workspace = true
 zksync_types.workspace = true
 multivm.workspace = true
 serde.workspace = true
+ciborium.workspace = true
