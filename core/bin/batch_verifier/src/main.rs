@@ -268,7 +268,7 @@ async fn main() -> anyhow::Result<()> {
         let v = object_store
             .get::<TeeVerifierInput>(L1BatchNumber(i))
             .await
-            .context("failed to get batch verifier inputs for batch {i}")?;
+            .context(format!("failed to get batch verifier inputs for batch {i}"))?;
         run_tee_verifier(v)?;
         info!("Successfully validated batch {i}");
         i += 1;
