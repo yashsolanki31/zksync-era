@@ -30,7 +30,7 @@ async fn main() -> anyhow::Result<()> {
     .await;
 
     for i in 1..u32::MAX {
-        let v = object_store
+        object_store
             .get::<TeeVerifierInput>(L1BatchNumber(i))
             .await
             .context(format!("failed to get batch verifier inputs for batch {i}"))?
