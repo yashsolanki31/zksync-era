@@ -29,14 +29,13 @@ async fn main() -> anyhow::Result<()> {
     .create_store()
     .await;
 
-    let mut i = 1;
-    loop {
+    for i in 1..u32::MAX {
         let v = object_store
             .get::<TeeVerifierInput>(L1BatchNumber(i))
             .await
-            .context(format!("failed to get batch verifier inputs for batch {i}"))?;
-        TeeVerifierInput::run_tee_verifier(v)?;
+            .context(format!("failed to get batch verifier inputs for batch {i}"))?
+            .run_tee_verifier()?;
         info!("Successfully validated batch {i}");
-        i += 1;
     }
+    Ok(())
 }
