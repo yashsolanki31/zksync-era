@@ -1,5 +1,30 @@
 # Changelog
 
+## [15.0.0](https://github.com/matter-labs/zksync-era/compare/prover-v14.5.0...prover-v15.0.0) (2024-06-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated boojum and nightly rust compiler ([#2126](https://github.com/matter-labs/zksync-era/issues/2126))
+
+### Features
+
+* added debug_proof to prover_cli ([#2052](https://github.com/matter-labs/zksync-era/issues/2052)) ([b1ad01b](https://github.com/matter-labs/zksync-era/commit/b1ad01b50392a0ee241c2263ac22bb3258fae2d7))
+* faster & cleaner VK generation ([#2084](https://github.com/matter-labs/zksync-era/issues/2084)) ([89c8cac](https://github.com/matter-labs/zksync-era/commit/89c8cac6a747b3e05529218091b90ceb8e520c7a))
+* **node:** Move some stuff around ([#2151](https://github.com/matter-labs/zksync-era/issues/2151)) ([bad5a6c](https://github.com/matter-labs/zksync-era/commit/bad5a6c0ec2e166235418a2796b6ccf6f8b3b05f))
+* **object-store:** Allow caching object store objects locally ([#2153](https://github.com/matter-labs/zksync-era/issues/2153)) ([6c6e65c](https://github.com/matter-labs/zksync-era/commit/6c6e65ce646bcb4ed9ba8b2dd6be676bb6e66324))
+* **prover:** Add file based config for fri prover gateway ([#2150](https://github.com/matter-labs/zksync-era/issues/2150)) ([81ffc6a](https://github.com/matter-labs/zksync-era/commit/81ffc6a753fb72747c01ddc8a37211bf6a8a1a27))
+* **prover:** file based configs for witness generator ([#2161](https://github.com/matter-labs/zksync-era/issues/2161)) ([24b8f93](https://github.com/matter-labs/zksync-era/commit/24b8f93fbcc537792a7615f34bce8b6702a55ccd))
+* updated boojum and nightly rust compiler ([#2126](https://github.com/matter-labs/zksync-era/issues/2126)) ([9e39f13](https://github.com/matter-labs/zksync-era/commit/9e39f13c29788e66645ea57f623555c4b36b8aff))
+
+
+### Bug Fixes
+
+* **config:** Split object stores ([#2187](https://github.com/matter-labs/zksync-era/issues/2187)) ([9bcdabc](https://github.com/matter-labs/zksync-era/commit/9bcdabcaa8462ae19da1688052a7a78fa4108298))
+* **prover_cli:** Fix delete command ([#2119](https://github.com/matter-labs/zksync-era/issues/2119)) ([214f981](https://github.com/matter-labs/zksync-era/commit/214f981880ca1ea879e805f8fc392f5c422be08d))
+* **prover_cli:** Fix the issues with `home` path ([#2104](https://github.com/matter-labs/zksync-era/issues/2104)) ([1e18af2](https://github.com/matter-labs/zksync-era/commit/1e18af20d082065f269c6cad65bee99363e2d770))
+* **prover:** config ([#2165](https://github.com/matter-labs/zksync-era/issues/2165)) ([e5daf8e](https://github.com/matter-labs/zksync-era/commit/e5daf8e8358eff65963d6a1b2294d0bd1fccab89))
+
 ## [14.5.0](https://github.com/matter-labs/zksync-era/compare/prover-v14.4.0...prover-v14.5.0) (2024-06-04)
 
 
